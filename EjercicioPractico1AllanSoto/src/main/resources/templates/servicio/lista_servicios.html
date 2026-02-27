@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/fragmentos :: head}" />
+
+<body>
+    <header th:replace="~{layout/fragmentos :: header}" />
+
+    <section th:replace="~{servicio/frag_servicio :: agregar}" />
+    <section th:replace="~{servicio/frag_servicio :: listado}" />
+
+    <footer th:replace="~{layout/fragmentos :: footer}" />
+</body>
+
+</html>

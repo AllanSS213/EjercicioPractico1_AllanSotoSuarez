@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <title>Salón de Belleza</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/font-awesome/css/all.min.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body {
+            background-color: #fce4ec;
+            /* light pink background */
+            font-family: inherit;
+        }
+
+        .navbar-custom {
+            background-color: #d81b60;
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white;
+            font-weight: 500;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #f8bbd0;
+        }
+
+        .card-header-custom {
+            background-color: #d81b60;
+            color: white;
+        }
+
+        .btn-custom {
+            background-color: #d81b60;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #c2185b;
+            color: white;
+        }
+
+        .footer-custom {
+            background-color: #880e4f;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header th:fragment="header">
+        <nav class="navbar navbar-expand-lg navbar-custom shadow-sm mb-4">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <i class="fas fa-spa me-2"></i>Salón de Belleza
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}"><i class="fas fa-home me-1"></i>Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/categoria/listado}"><i
+                                    class="fas fa-tags me-1"></i>Categorías</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/servicio/listado}"><i
+                                    class="fas fa-cut me-1"></i>Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/reserva/listado}"><i
+                                    class="fas fa-calendar-check me-1"></i>Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/contacto}"><i class="fas fa-envelope me-1"></i>Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <footer th:fragment="footer" class="footer-custom mt-5 py-4">
+        <div class="container text-center">
+            <p class="mb-0"><i class="fas fa-spa me-2"></i><strong>Salón de Belleza</strong></p>
+        </div>
+    </footer>
+</body>
+
+</html>

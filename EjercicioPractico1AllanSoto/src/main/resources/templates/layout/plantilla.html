@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/fragmentos :: head}">
+    <title>Salón de Belleza</title>
+</head>
+
+<body>
+    <header th:replace="~{layout/fragmentos :: header}"></header>
+
+    <div class="container mt-4">
+        <main layout:fragment="content">
+            <!-- contenido de cada página -->
+        </main>
+    </div>
+
+    <footer th:replace="~{layout/fragmentos :: footer}"></footer>
+</body>
+
+</html>

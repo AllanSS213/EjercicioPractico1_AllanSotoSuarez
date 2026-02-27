@@ -1,0 +1,138 @@
+<!-- Fragmento para agregar reserva (botón y modal) -->
+<section th:fragment="agregar">
+    <div class="row align-items-center mb-3">
+        <div class="col-md-8">
+            <h3 style="color: #d81b60;"><i class="fas fa-calendar-alt me-2"></i>Gestión de Reservas</h3>
+        </div>
+        <div class="col-md-4 text-end">
+            <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+                <i class="fas fa-plus me-1"></i> Nueva Reserva
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAgregar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header card-header-custom">
+                    <h5 class="modal-title"><i class="fas fa-calendar-plus me-2"></i>Agendar Reserva</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/reserva/guardar}" method="POST" class="was-validated">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre del Cliente</label>
+                            <input type="text" class="form-control" name="nombreCliente" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fecha</label>
+                            <input type="date" class="form-control" name="fecha" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Servicio</label>
+                            <select class="form-select" name="servicio.idServicio" required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.nombre}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-custom"><i class="fas fa-save me-1"></i>Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section th:fragment="listado">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header card-header-custom">
+            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Listado de Reservas</h5>
+        </div>
+        <div class="card-body">
+            <div th:if="${reservas != null and !reservas.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Servicio</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva, cont : ${reservas}">
+                            <td th:text="${cont.count}"></td>
+                            <td th:text="${reserva.nombreCliente}"></td>
+                            <td th:text="${reserva.fecha}"></td>
+                            <td th:text="${reserva.servicio.nombre}"></td>
+                            <td class="text-center">
+                                <a th:href="@{/reserva/modificar/}+${reserva.idReserva}"
+                                    class="btn btn-warning btn-sm me-2">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a th:href="@{/reserva/eliminar/}+${reserva.idReserva}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Seguro que desea eliminar esta reserva?');">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${reservas == null or reservas.empty}" class="text-center p-4">
+                <p class="text-muted"><i class="fas fa-info-circle me-1"></i>No hay reservas registradas.</p>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-end">
+            Total de Reservas: <span class="badge bg-secondary">[[${totalReservas}]]</span>
+        </div>
+    </div>
+</section>
+
+<section th:fragment="editar">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header card-header-custom">
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Editar Reserva</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/reserva/guardar}" th:object="${reserva}" method="POST" class="was-validated">
+                        <input type="hidden" name="idReserva" th:field="*{idReserva}" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre del Cliente</label>
+                            <input type="text" class="form-control" name="nombreCliente" th:field="*{nombreCliente}"
+                                required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fecha</label>
+                            <input type="date" class="form-control" name="fecha" th:field="*{fecha}" required />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Servicio</label>
+                            <select class="form-select" name="servicio.idServicio" th:field="*{servicio.idServicio}"
+                                required>
+                                <option th:each="s : ${servicios}" th:value="${s.idServicio}" th:text="${s.nombre}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/reserva/listado}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i>Regresar
+                            </a>
+                            <button type="submit" class="btn btn-custom">
+                                <i class="fas fa-check me-1"></i>Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
